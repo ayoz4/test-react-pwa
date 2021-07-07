@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../../styles/search/SearchPage.scss";
+import SearchInput from "../common/SearchInput";
 
 function SearchPage() {
   return (
@@ -8,11 +9,7 @@ function SearchPage() {
       <form className="search__form">
         <h1>Поиск видео</h1>
 
-        <div className="search__inputArea">
-          <input />
-
-          <button>Найти</button>
-        </div>
+        <SearchInput />
       </form>
     </div>
   );

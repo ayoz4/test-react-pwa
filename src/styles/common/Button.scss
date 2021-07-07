@@ -1,0 +1,29 @@
+.submitButton {
+  min-width: 176px;
+  min-height: 52px;
+
+  background: #1390e5;
+  border-radius: 5px;
+
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height, or 120% */
+
+  align-items: center;
+  text-align: center;
+
+  /* Crystal white */
+
+  color: #ffffff;
+
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: blue;
+}
+
+.submitButton:active {
+  background-color: black;
+}
