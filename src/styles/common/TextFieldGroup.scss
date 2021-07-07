@@ -1,0 +1,40 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  label {
+    margin-bottom: 5px;
+    color: rgba(23, 23, 25, 0.3);
+  }
+
+  input {
+    border: 1px solid rgba(23, 23, 25, 0.2);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 46px;
+    max-width: 500px;
+    padding: 15px 12px;
+  }
+
+  .input__error {
+    font-size: 13px;
+    line-height: 16px;
+    color: #8a92ac;
+  }
+}
+
+.input_req {
+  color: #f14e4e;
+}
+
+.input_auto {
+  color: #1fb7a4;
+}
+
+input:focus {
+  background: rgba(197, 228, 249, 0.3);
+  border: 1px solid #1390e5;
+  border-radius: 5px;
+  outline: none;
+}

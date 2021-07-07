@@ -1,0 +1,14 @@
+.search {
+}
+
+.search__form {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr;
+  row-gap: 40px;
+}
+
+.search__inputArea {
+  display: flex;
+}
