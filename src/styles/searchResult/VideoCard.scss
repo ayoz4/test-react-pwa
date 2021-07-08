@@ -1,0 +1,25 @@
+.videoCard {
+  display: grid;
+  grid-template-rows: 1fr;
+  row-gap: 8px;
+
+  width: 245px;
+  height: 226px;
+
+  .videoCard__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .videoCard__channelBlock {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    /* or 114% */
+
+    /* Gray */
+    color: rgba(23, 23, 25, 0.3);
+  }
+}

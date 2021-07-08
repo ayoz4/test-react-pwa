@@ -11,6 +11,17 @@ html {
   overflow-x: hidden;
 }
 
+li,
+a,
+button,
+p,
+span,
+h1,
+h2 {
+  font-family: "Roboto";
+  text-decoration: none;
+}
+
 @font-face {
   font-family: "Roboto";
   src: local("Roboto"), url(../fonts/Roboto-Regular.ttf) format("truetype");

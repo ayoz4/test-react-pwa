@@ -1,0 +1,42 @@
+.result {
+  background: #fafafa;
+}
+
+.result__container {
+  margin: auto;
+  padding-top: 40px;
+
+  width: 1040px;
+
+  h2 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .searchInput {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .list {
+    margin-top: 20px;
+  }
+}
+
+.result__filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  margin-top: 40px;
+
+  .result__query {
+    display: inherit;
+
+    span {
+      margin-left: 15px;
+    }
+  }
+}
