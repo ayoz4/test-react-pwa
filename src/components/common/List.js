@@ -1,18 +1,15 @@
 import React from "react";
-import VideoCard from "./VideoCard";
 
 import "../../styles/searchResult/List.scss";
+import VideoCardList from "./VideoCardList";
 
 function List() {
   return (
     <div className="list">
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
+      <VideoCardList />
+      <VideoCardList />
+      <VideoCardList />
+      <VideoCardList />
     </div>
   );
 }

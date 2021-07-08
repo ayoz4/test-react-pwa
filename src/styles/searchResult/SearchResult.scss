@@ -20,7 +20,8 @@
     width: 100%;
   }
 
-  .list {
+  .list,
+  .grid {
     margin-top: 20px;
   }
 }
@@ -37,6 +38,20 @@
 
     span {
       margin-left: 15px;
+    }
+  }
+}
+
+.result__gridType {
+  .result__grid:hover {
+    path {
+      stroke: black;
+    }
+  }
+
+  .result__list:hover {
+    path {
+      stroke: black;
     }
   }
 }

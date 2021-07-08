@@ -1,0 +1,31 @@
+.videoCardList {
+  width: 687px;
+  display: flex;
+}
+
+.videoCardList__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.videoCardList__title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.videoCardList__channelBlock {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* or 125% */
+
+  /* Gray */
+
+  color: rgba(23, 23, 25, 0.3);
+}

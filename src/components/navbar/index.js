@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "../../styles/navbar/Navbar.scss";
 
@@ -9,10 +10,14 @@ function Navbar() {
       <nav className="navbar__nav">
         <ul className="navbar__container">
           <li className="active">
-            <a href="#">Поиск</a>
+            <a href="#">
+              <Link to="/search">Поиск</Link>
+            </a>
           </li>
           <li>
-            <a href="#">Избранное</a>
+            <a href="#">
+              <Link to="/favorites">Избранное</Link>
+            </a>
           </li>
         </ul>
       </nav>

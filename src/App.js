@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Favorites from "./components/favourites";
 
 import Login from "./components/login";
 import Navbar from "./components/navbar";
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route exact path="/search" component={SearchPage} />
         <Route exact path="/result" component={SearchResult} />
+        <Route exact path="/favorites" component={Favorites} />
       </Switch>
     </Router>
   );

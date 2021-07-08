@@ -1,0 +1,72 @@
+.favorites {
+  background: #fafafa;
+}
+
+.favorites__container {
+  width: 1040px;
+  margin: 0 auto;
+  padding-top: 40px;
+
+  h2 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 40px;
+  }
+}
+
+.favorites__list {
+  width: 100%;
+  list-style: none;
+  background: #ffffff;
+  margin-top: 40px;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    height: 47px;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 13px 20px 14px 20px;
+
+    a {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  li:hover {
+    background-color: #f1f1f1;
+  }
+
+  li:hover .favorites__btnBlock {
+    visibility: visible;
+  }
+}
+
+.favorites__btnBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  visibility: hidden;
+
+  button {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+  }
+
+  .favorites__editBtn {
+    color: #1390e5;
+  }
+
+  .favorites__deleteBtn {
+    color: #ff0000;
+  }
+}
