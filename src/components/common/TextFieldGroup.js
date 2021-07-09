@@ -15,7 +15,7 @@ function TextFieldGroup({
 }) {
   return (
     <div className="input">
-      <label>{label}</label>
+      {label && <label>{label}</label>}
       <input
         onChange={handleChange}
         onBlur={handleBlur}

@@ -4,7 +4,6 @@ import "../../styles/searchResult/SearchResult.scss";
 import List from "../common/List";
 import Grid from "../common/Grid";
 import SearchInput from "../common/SearchInput";
-import VideoCard from "../common/VideoCard";
 
 function SearchResult() {
   const [isList, setIsList] = useState(false);
