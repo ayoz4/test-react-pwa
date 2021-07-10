@@ -43,6 +43,10 @@
 }
 
 .result__gridType {
+  display: flex;
+  justify-content: space-between;
+  width: 63px;
+
   .result__grid:hover {
     path {
       stroke: black;
