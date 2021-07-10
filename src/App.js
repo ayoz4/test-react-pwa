@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -5,12 +6,14 @@ import {
   Redirect,
 } from "react-router-dom";
 import Favorites from "./components/favourites";
+import { useDispatch } from "react-redux";
+import jwt from "jsonwebtoken";
 
 import Login from "./components/login";
 import Navbar from "./components/navbar";
 import SearchPage from "./components/search";
 import SearchResult from "./components/searchResult";
-import { USER_TOKEN } from "./redux/consts";
+import { GET_REQUESTS_SUCCESS, REQUEST_DB, USER_TOKEN } from "./redux/consts";
 
 const isAuth = () => {
   const token = localStorage.getItem(USER_TOKEN);
@@ -54,6 +57,33 @@ const IsAuthRoute = ({ component: Component, ...rest }) => (
 );
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!localStorage.getItem(REQUEST_DB)) {
+      localStorage.setItem(
+        REQUEST_DB,
+        JSON.stringify([
+          {
+            login: "roman",
+            requests: [],
+          },
+        ])
+      );
+    }
+
+    const userData = jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey");
+
+    console.log(userData);
+
+    dispatch({
+      type: GET_REQUESTS_SUCCESS,
+      data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
+        (value) => value.login === userData.login
+      )[0],
+    });
+  }, []);
+
   return (
     <Router>
       <IsAuthRoute exact path="/" component={Login} />

@@ -2,11 +2,15 @@ import React from "react";
 import { Modal, Slider, Popover } from "antd";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import jwt from "jsonwebtoken";
+import * as Yup from "yup";
 
 import "../../styles/searchResult/FavoritesModal.scss";
 import withModal from "../common/withModal";
 import TextFieldGroup from "../common/TextFieldGroup";
 import Button from "../common/Button";
+import { addRequest } from "../../redux/actions/userActions";
+import { USER_TOKEN } from "../../redux/consts";
 
 const content = (
   <div className="requestModal__popover">
@@ -22,6 +26,23 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
       name: "",
       sortType: "",
       videoQuantity: 0,
+    },
+
+    validationSchema: Yup.object().shape({
+      query: Yup.string().required(),
+      name: Yup.string().required(),
+      sortType: Yup.string(),
+      videoQuantity: Yup.number(),
+    }),
+
+    onSubmit: (values) => {
+      const userData = jwt.verify(
+        localStorage.getItem(USER_TOKEN),
+        "secretkey"
+      );
+
+      console.log(userData);
+      addRequest(userData.login, values);
     },
   });
 
@@ -41,7 +62,7 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
         bodyStyle={{ padding: "36px 40px" }}
         maskStyle={{ background: "#75C7FF", opacity: "0.8" }}
       >
-        <form className="requestModal">
+        <form className="requestModal" onSubmit={formik.handleSubmit}>
           <h3>
             <b>Сохранить запрос</b>
           </h3>
@@ -93,7 +114,7 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
 
           <div className="requestModal__btnBlock">
             <Button
-              type="outline"
+              style="outline"
               onClick={(e) => {
                 e.preventDefault();
                 closeModal();
@@ -101,7 +122,9 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
             >
               Не сохранять
             </Button>
-            <Button type="primary">Сохранить</Button>
+            <Button style="primary" type="submit">
+              Сохранить
+            </Button>
           </div>
         </form>
       </Modal>

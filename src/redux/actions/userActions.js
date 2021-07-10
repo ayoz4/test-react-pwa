@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import users from "../../users.json";
-import { USER_TOKEN } from "../consts";
+import { REQUEST_DB, USER_TOKEN } from "../consts";
 
 export const login = (username, password) => {
   const user = users.find((value) => value.login === username);
@@ -15,4 +15,22 @@ export const login = (username, password) => {
   }
 
   return false;
+};
+
+export const addRequest = async (username, data) => {
+  if (!localStorage.getItem(USER_TOKEN)) return;
+
+  const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+
+  console.log(requestDb);
+
+  requestDb.map((value) => {
+    if (value.login === username) {
+      value.requests = [...value.requests, data];
+    }
+
+    return value;
+  });
+
+  localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
 };
