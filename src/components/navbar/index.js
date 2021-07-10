@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import '../../styles/navbar/Navbar.scss';
+import "../../styles/navbar/Navbar.scss";
 
 function Navbar() {
   return (
@@ -12,10 +12,14 @@ function Navbar() {
       <nav className="navbar__nav">
         <ul className="navbar__container">
           <li className="active">
-            <Link to="/search">Поиск</Link>
+            <a href="#">
+              <Link to="/search">Поиск</Link>
+            </a>
           </li>
           <li>
-            <Link to="/favorites">Избранное</Link>
+            <a href="#">
+              <Link to="/favorites">Избранное</Link>
+            </a>
           </li>
         </ul>
       </nav>

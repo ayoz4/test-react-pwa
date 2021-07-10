@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import '../../styles/favorites/Favorites.scss';
+import "../../styles/favorites/Favorites.scss";
 
 function Favorites() {
   return (
@@ -10,7 +10,9 @@ function Favorites() {
 
         <ul className="favorites__list">
           <li>
-            <a>фыв фывфыв фыв</a>
+            <a>
+              <b>фыв фывфыв фыв</b>
+            </a>
 
             <div className="favorites__btnBlock">
               <button className="favorites__editBtn">Изменить</button>
@@ -18,25 +20,9 @@ function Favorites() {
             </div>
           </li>
           <li>
-            <a>фыв фывфыв фыв</a>
-
-            <div className="favorites__btnBlock">
-              <button className="favorites__editBtn">Изменить</button>
-              <button className="favorites__deleteBtn">Удалить</button>
-            </div>
-          </li>
-
-          <li>
-            <a>фыв фывфыв фыв</a>
-
-            <div className="favorites__btnBlock">
-              <button className="favorites__editBtn">Изменить</button>
-              <button className="favorites__deleteBtn">Удалить</button>
-            </div>
-          </li>
-
-          <li>
-            <a>фыв фывфыв фыв</a>
+            <a>
+              <b>фыв фывфыв фыв</b>
+            </a>
 
             <div className="favorites__btnBlock">
               <button className="favorites__editBtn">Изменить</button>
@@ -45,7 +31,31 @@ function Favorites() {
           </li>
 
           <li>
-            <a>фыв фывфыв фыв</a>
+            <a>
+              <b>фыв фывфыв фыв</b>
+            </a>
+
+            <div className="favorites__btnBlock">
+              <button className="favorites__editBtn">Изменить</button>
+              <button className="favorites__deleteBtn">Удалить</button>
+            </div>
+          </li>
+
+          <li>
+            <a>
+              <b>фыв фывфыв фыв</b>
+            </a>
+
+            <div className="favorites__btnBlock">
+              <button className="favorites__editBtn">Изменить</button>
+              <button className="favorites__deleteBtn">Удалить</button>
+            </div>
+          </li>
+
+          <li>
+            <a>
+              <b>фыв фывфыв фыв</b>
+            </a>
 
             <div className="favorites__btnBlock">
               <button className="favorites__editBtn">Изменить</button>

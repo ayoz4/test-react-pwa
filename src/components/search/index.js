@@ -1,18 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import '../../styles/search/SearchPage.scss';
-import SearchInput from '../common/SearchInput';
+import "../../styles/search/SearchPage.scss";
+import SearchInput from "../common/SearchInput";
+import withSearch from "../common/withSearch";
 
-function SearchPage() {
+function SearchPage({ search, history }) {
   return (
     <div className="search">
       <form className="search__form">
         <h1>Поиск видео</h1>
 
-        <SearchInput />
+        <SearchInput search={search} history={history} />
       </form>
     </div>
   );
 }
 
-export default SearchPage;
+export default withSearch(SearchPage);
