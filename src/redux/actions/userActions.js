@@ -17,20 +17,27 @@ export const login = (username, password) => {
   return false;
 };
 
-export const addRequest = async (username, data) => {
-  if (!localStorage.getItem(USER_TOKEN)) return;
+export const addRequest = (username, data) => {
+  try {
+    if (!localStorage.getItem(USER_TOKEN))
+      throw new Error("Пользователь не авторизирован");
 
-  const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+    const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
 
-  console.log(requestDb);
+    requestDb.map((value) => {
+      if (value.login === username) {
+        if (value.requests.some((element) => element.name === data.name)) {
+          throw new Error("Такой запрос уже был добавлен");
+        }
 
-  requestDb.map((value) => {
-    if (value.login === username) {
-      value.requests = [...value.requests, data];
-    }
+        value.requests = [...value.requests, data];
+      }
 
-    return value;
-  });
+      return value;
+    });
 
-  localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
+    localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
+  } catch (error) {
+    throw error;
+  }
 };

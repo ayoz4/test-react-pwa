@@ -1,5 +1,5 @@
-import React from "react";
-import { Modal, Slider, Popover } from "antd";
+import React, { useEffect } from "react";
+import { Modal, Slider, Popover, message } from "antd";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
@@ -11,6 +11,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import Button from "../common/Button";
 import { addRequest } from "../../redux/actions/userActions";
 import { USER_TOKEN } from "../../redux/consts";
+import SelectInput from "../common/SelectInput";
 
 const content = (
   <div className="requestModal__popover">
@@ -19,13 +20,50 @@ const content = (
   </div>
 );
 
-function FavoritesModal({ children, isVisible, showModal, closeModal }) {
+const sortTypes = [
+  {
+    key: "По дате",
+    value: "date",
+  },
+  {
+    key: "По рейтингу",
+    value: "rating",
+  },
+  {
+    key: "По релевантности",
+    value: "relevance",
+  },
+  {
+    key: "По алфавиту",
+    value: "title",
+  },
+  {
+    key: "По количеству загруженных видео",
+    value: "videoCount",
+  },
+  {
+    key: "По количествку просмотров",
+    value: "viewCount ",
+  },
+];
+
+function FavoritesModal({
+  children,
+  isVisible,
+  showModal,
+  closeModal,
+  query = "",
+}) {
+  useEffect(() => {
+    formik.setValues({ ...formik.values, query: query });
+  }, [query]);
+
   const formik = useFormik({
     initialValues: {
       query: "",
       name: "",
       sortType: "",
-      videoQuantity: 0,
+      videoQuantity: 12,
     },
 
     validationSchema: Yup.object().shape({
@@ -36,13 +74,20 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
     }),
 
     onSubmit: (values) => {
-      const userData = jwt.verify(
-        localStorage.getItem(USER_TOKEN),
-        "secretkey"
-      );
+      try {
+        const userData = jwt.verify(
+          localStorage.getItem(USER_TOKEN),
+          "secretkey"
+        );
 
-      console.log(userData);
-      addRequest(userData.login, values);
+        addRequest(userData.login, values);
+
+        message.success("Запрос было успешно сохранен");
+
+        closeModal();
+      } catch (error) {
+        message.error(error.message);
+      }
     },
   });
 
@@ -69,10 +114,12 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
 
           <TextFieldGroup
             label="Запрос"
-            placeholder="тест"
             name="query"
             value={formik.values.query}
             handleChange={formik.handleChange}
+            errors={formik.errors.query}
+            touched={formik.touched.query}
+            disabled
           />
 
           <TextFieldGroup
@@ -81,14 +128,16 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
             name="name"
             value={formik.values.name}
             handleChange={formik.handleChange}
+            errors={formik.errors.name}
+            touched={formik.touched.name}
           />
 
-          <TextFieldGroup
+          <SelectInput
             label="Сортировать по"
-            placeholder="Без сортировки"
             name="sortType"
             value={formik.values.sortType}
             handleChange={formik.handleChange}
+            options={sortTypes}
           />
 
           <div className="requestModal__sliderBlock">
@@ -105,6 +154,7 @@ function FavoritesModal({ children, isVisible, showModal, closeModal }) {
                 });
               }}
             />
+
             <TextFieldGroup
               name="videoQuantity"
               value={formik.values.videoQuantity}

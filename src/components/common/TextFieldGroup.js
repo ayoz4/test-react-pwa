@@ -12,6 +12,7 @@ function TextFieldGroup({
   touched,
   label,
   type,
+  disabled,
 }) {
   return (
     <div className="input">
@@ -23,6 +24,7 @@ function TextFieldGroup({
         name={name}
         placeholder={placeholder}
         type={type}
+        disabled={disabled}
       ></input>
       {errors && touched ? (
         <span className="input__error">{errors}</span>

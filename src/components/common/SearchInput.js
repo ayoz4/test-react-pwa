@@ -15,7 +15,7 @@ function SearchInput({ searched = false, search, history }) {
           onChange={(e) => setQuery(e.target.value)}
         />
         {searched && (
-          <FavoritesModal>
+          <FavoritesModal query={query}>
             <button className="searchInput__heartIcon">
               <svg
                 width="24"
@@ -39,7 +39,7 @@ function SearchInput({ searched = false, search, history }) {
 
       <Button
         className="searchInput__button"
-        type="primary"
+        style="primary"
         onClick={() => {
           search(query);
           if (history) history.push("/result");
