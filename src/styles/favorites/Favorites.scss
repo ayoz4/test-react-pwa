@@ -1,11 +1,14 @@
 .favorites {
   background: #fafafa;
+  height: calc(100vh - 80px);
 }
 
 .favorites__container {
-  width: 1040px;
+  max-width: 1170px;
   margin: 0 auto;
+  padding: 0 5%;
   padding-top: 40px;
+  height: 100%;
 
   h2 {
     font-style: normal;
@@ -33,6 +36,7 @@
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
+      color: #000;
     }
   }
 

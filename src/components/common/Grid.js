@@ -3,16 +3,16 @@ import VideoCard from "./VideoCard";
 
 import "../../styles/searchResult/Grid.scss";
 
-function Grid({ data }) {
+function Grid() {
   return (
     <div className="grid">
-      {data.map((value) => (
-        <VideoCard
-          preview={`https://www.youtube.com/embed/${value.id.videoId}`}
-          title={value.snippet.title}
-          channelTitle={value.snippet.channelTitle}
-        />
-      ))}
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
+      <VideoCard />
     </div>
   );
 }

@@ -1,15 +1,15 @@
 .videoCard {
-  display: grid;
-  grid-template-rows: 1fr;
-  row-gap: 8px;
-
   width: 245px;
-  height: 226px;
 
   .videoCard__title {
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-break: break-all;
+    margin-bottom: 10px;
   }
 
   .videoCard__channelBlock {

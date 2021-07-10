@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Favorites from "./components/favourites";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Favorites from './components/favourites';
 
-import Login from "./components/login";
-import Navbar from "./components/navbar";
-import SearchPage from "./components/search";
-import SearchResult from "./components/searchResult";
+import Login from './components/login';
+import Navbar from './components/navbar';
+import SearchPage from './components/search';
+import SearchResult from './components/searchResult';
 
 function App() {
   return (
