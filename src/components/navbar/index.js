@@ -1,9 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "../../styles/navbar/Navbar.scss";
+import { USER_TOKEN } from "../../redux/consts";
 
 function Navbar() {
+  const history = useHistory();
+
+  const logout = () => {
+    if (localStorage.getItem(USER_TOKEN)) {
+      localStorage.removeItem(USER_TOKEN);
+      history.push("/");
+    }
+  };
+
   return (
     <header className="navbar">
       <Link to="/search">
@@ -20,7 +30,7 @@ function Navbar() {
         </ul>
       </nav>
       <a className="navbar__logout" href="#">
-        <button>Выйти</button>
+        <button onClick={() => logout()}>Выйти</button>
       </a>
     </header>
   );
