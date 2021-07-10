@@ -11,9 +11,7 @@ import Button from "../common/Button";
 const content = (
   <div className="requestModal__popover">
     <p>Поиск сохранён в разделе «Избранное»</p>
-    <Link to="/favorites">
-      <a>Перейти в избранное</a>
-    </Link>
+    <Link to="/favorites">Перейти в избранное</Link>
   </div>
 );
 

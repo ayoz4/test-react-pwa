@@ -12,14 +12,10 @@ function Navbar() {
       <nav className="navbar__nav">
         <ul className="navbar__container">
           <li className="active">
-            <a href="#">
-              <Link to="/search">Поиск</Link>
-            </a>
+            <Link to="/search">Поиск</Link>
           </li>
           <li>
-            <a href="#">
-              <Link to="/favorites">Избранное</Link>
-            </a>
+            <Link to="/favorites">Избранное</Link>
           </li>
         </ul>
       </nav>
