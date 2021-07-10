@@ -1,15 +1,19 @@
-import React from "react";
-import { Popover } from "antd";
+import React, { useState } from "react";
 
 import "../../styles/common/SearchInput.scss";
 import Button from "./Button";
 import FavoritesModal from "../searchResult/FavoritesModal";
 
-function SearchInput({ searched = false }) {
+function SearchInput({ searched = false, search, history }) {
+  const [query, setQuery] = useState("");
+
   return (
     <div className="searchInput">
       <div className="searchInput__inputBlock">
-        <input className="searchInput__input" />
+        <input
+          className="searchInput__input"
+          onChange={(e) => setQuery(e.target.value)}
+        />
         {searched && (
           <FavoritesModal>
             <button className="searchInput__heartIcon">
@@ -33,7 +37,14 @@ function SearchInput({ searched = false }) {
         )}
       </div>
 
-      <Button className="searchInput__button" type="primary">
+      <Button
+        className="searchInput__button"
+        type="primary"
+        onClick={() => {
+          search(query);
+          if (history) history.push("/result");
+        }}
+      >
         Найти
       </Button>
     </div>

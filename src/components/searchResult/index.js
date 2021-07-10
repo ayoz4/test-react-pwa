@@ -4,24 +4,25 @@ import "../../styles/searchResult/SearchResult.scss";
 import List from "../common/List";
 import Grid from "../common/Grid";
 import SearchInput from "../common/SearchInput";
+import withSearch from "../common/withSearch";
 
-function SearchResult() {
-  const [isList, setIsList] = useState(false);
+function SearchResult({ search, videos }) {
+  const [isList, setIsList] = useState(true);
 
   return (
     <div className="result">
       <div className="result__container">
         <h2>Поиск видео</h2>
 
-        <SearchInput searched />
+        <SearchInput searched search={search} />
 
         <div className="result__filter">
           <div className="result__query">
             <p>
-              Видео по запросу <b>«чем кормить кота»</b>
+              Видео по запросу <b>«{videos.result.query}»</b>
             </p>
 
-            <span>7230</span>
+            <span>{videos.result.pageInfo.totalResults}</span>
           </div>
 
           <div className="result__gridType">
@@ -123,10 +124,14 @@ function SearchResult() {
           </div>
         </div>
 
-        {isList ? <List /> : <Grid />}
+        {isList ? (
+          <List data={videos.result.items} />
+        ) : (
+          <Grid data={videos.result.items} />
+        )}
       </div>
     </div>
   );
 }
 
-export default SearchResult;
+export default withSearch(SearchResult);
