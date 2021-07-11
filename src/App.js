@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -72,14 +72,19 @@ function App() {
       );
     }
 
-    const userData = jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey");
+    if (localStorage.getItem(USER_TOKEN)) {
+      const userData = jwt.verify(
+        localStorage.getItem(USER_TOKEN),
+        "secretkey"
+      );
 
-    dispatch({
-      type: GET_REQUESTS_SUCCESS,
-      data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
-        (value) => value.login === userData.login
-      )[0],
-    });
+      dispatch({
+        type: GET_REQUESTS_SUCCESS,
+        data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
+          (value) => value.login === userData.login
+        )[0],
+      });
+    }
   }, []);
 
   return (

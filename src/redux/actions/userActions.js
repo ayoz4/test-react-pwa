@@ -4,17 +4,19 @@ import users from "../../users.json";
 import { REQUEST_DB, USER_TOKEN } from "../consts";
 
 export const login = (username, password) => {
-  const user = users.find((value) => value.login === username);
+  try {
+    const user = users.find((value) => value.login === username);
 
-  if (user && user.password === password) {
+    if (!user) throw new Error("Пользователь не найден");
+
+    if (user.password !== password) throw new Error("Пароль не совпадает");
+
     const token = jwt.sign(user, "secretkey");
 
     localStorage.setItem(USER_TOKEN, token);
-
-    return true;
+  } catch (error) {
+    throw error;
   }
-
-  return false;
 };
 
 export const addRequest = (username, data) => {

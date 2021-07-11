@@ -1,0 +1,27 @@
+.select {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
+    color: #272727;
+  }
+
+  .label-disabled {
+    color: rgba(23, 23, 25, 0.3);
+  }
+
+  select {
+    opacity: 0.6;
+    /* Gray */
+
+    border: 1px solid rgba(23, 23, 25, 0.3);
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 12px 15px;
+
+    option {
+      line-height: 24px;
+    }
+  }
+}

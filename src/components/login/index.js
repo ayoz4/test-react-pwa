@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
 
 import "../../styles/login/Login.scss";
 import TextFieldGroup from "../common/TextFieldGroup";
@@ -15,8 +16,20 @@ function Login() {
       password: "",
     },
 
-    onSubmit: (values) => {
-      if (login(values.login, values.password)) history.push("/search");
+    validationSchema: Yup.object().shape({
+      login: Yup.string().required("Логин - обязательное поле"),
+      password: Yup.string().required("Пароль - обязательное поле"),
+    }),
+
+    onSubmit: (values, helpers) => {
+      try {
+        login(values.login, values.password);
+
+        history.push("/search");
+        helpers.resetForm();
+      } catch (error) {
+        helpers.setErrors({ auth: error.message });
+      }
     },
   });
 
@@ -32,6 +45,8 @@ function Login() {
           name="login"
           value={formik.values.login}
           handleChange={formik.handleChange}
+          errors={formik.errors.login}
+          touched={formik.touched.login}
         />
 
         <TextFieldGroup
@@ -40,6 +55,8 @@ function Login() {
           name="password"
           value={formik.values.password}
           handleChange={formik.handleChange}
+          errors={formik.errors.password}
+          touched={formik.touched.password}
         />
 
         <div className="login__submit">
@@ -47,6 +64,7 @@ function Login() {
             Войти
           </button>
         </div>
+        <span className="login__error">{formik.errors.auth}</span>
       </form>
     </div>
   );

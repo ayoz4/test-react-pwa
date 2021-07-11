@@ -4,7 +4,13 @@ import "../../styles/common/SearchInput.scss";
 import Button from "./Button";
 import FavoritesModal from "../searchResult/FavoritesModal";
 
-function SearchInput({ searched = false, search, history, settedQuery }) {
+function SearchInput({
+  searched = false,
+  search,
+  history,
+  settedQuery,
+  setError,
+}) {
   const [query, setQuery] = useState(settedQuery);
 
   useEffect(() => {
@@ -45,8 +51,14 @@ function SearchInput({ searched = false, search, history, settedQuery }) {
       <Button
         className="searchInput__button"
         style="primary"
-        onClick={() => {
-          search(query);
+        onClick={(e) => {
+          if (query === "" || !query) {
+            e.preventDefault();
+            setError("Запрос пустой");
+            return;
+          }
+
+          if (query) search(query);
           if (history) history.push("/result");
         }}
       >

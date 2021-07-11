@@ -82,8 +82,8 @@ function FavoritesModal({
     },
 
     validationSchema: Yup.object().shape({
-      query: Yup.string().required(),
-      name: Yup.string().required(),
+      query: Yup.string().required("Введите запрос на страницу поиска"),
+      name: Yup.string().required("Название - обязательное поле"),
       sortType: Yup.string(),
       videoQuantity: Yup.number(),
     }),
@@ -173,26 +173,30 @@ function FavoritesModal({
             options={sortTypes}
           />
 
-          <div className="requestModal__sliderBlock">
-            <Slider
-              min={0}
-              max={50}
-              value={formik.values.videoQuantity}
-              onChange={(e) => {
-                formik.handleChange({
-                  target: {
-                    name: "videoQuantity",
-                    value: e,
-                  },
-                });
-              }}
-            />
+          <div className="requestModal__quantity">
+            <label>Максимальное количество</label>
 
-            <TextFieldGroup
-              name="videoQuantity"
-              value={formik.values.videoQuantity}
-              handleChange={formik.handleChange}
-            />
+            <div className="requestModal__sliderBlock">
+              <Slider
+                min={0}
+                max={50}
+                value={formik.values.videoQuantity}
+                onChange={(e) => {
+                  formik.handleChange({
+                    target: {
+                      name: "videoQuantity",
+                      value: e,
+                    },
+                  });
+                }}
+              />
+
+              <TextFieldGroup
+                name="videoQuantity"
+                value={formik.values.videoQuantity}
+                handleChange={formik.handleChange}
+              />
+            </div>
           </div>
 
           <div className="requestModal__btnBlock">

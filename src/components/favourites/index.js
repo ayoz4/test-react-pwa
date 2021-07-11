@@ -13,6 +13,7 @@ import {
 } from "../../redux/consts";
 import { search } from "../../redux/actions/youtubeActions";
 import { Link } from "react-router-dom";
+import EmptyPage from "./EmptyPage";
 
 function Favorites({ search }) {
   const favorites = useSelector((state) => state.favorites.requests);
@@ -21,6 +22,10 @@ function Favorites({ search }) {
   const [userData, setUserData] = useState(
     jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey")
   );
+
+  if (favorites.length === 0) {
+    return <EmptyPage />;
+  }
 
   return (
     <div className="favorites">

@@ -1,0 +1,18 @@
+.emptyFav {
+  background: #fafafa;
+  width: 100%;
+  height: calc(100vh - 80px);
+  padding-top: 120px;
+}
+
+.emptyFav__container {
+  width: 1040px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+
+  a {
+    color: #1390e5;
+    font-size: medium;
+  }
+}

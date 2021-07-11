@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 
 import "../../styles/common/TextFieldGroup.scss";
 
@@ -16,7 +17,11 @@ function TextFieldGroup({
 }) {
   return (
     <div className="input">
-      {label && <label>{label}</label>}
+      {label && (
+        <label className={classnames({ "label-disabled": disabled })}>
+          {label}
+        </label>
+      )}
       <input
         onChange={handleChange}
         onBlur={handleBlur}

@@ -1,4 +1,7 @@
 import React from "react";
+import classnames from "classnames";
+
+import "../../styles/common/SelectInput.scss";
 
 function SelectInput({
   label,
@@ -12,7 +15,11 @@ function SelectInput({
 }) {
   return (
     <div className="select">
-      <label>{label}</label>
+      {label && (
+        <label className={classnames({ "label-disabled": disabled })}>
+          {label}
+        </label>
+      )}
       <select
         name={name}
         value={value}
