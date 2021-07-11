@@ -55,23 +55,23 @@ const IsAuthRoute = ({ component: Component, ...rest }) => (
 );
 
 function App() {
-  useEffect(() => {
-    if (!localStorage.getItem(REQUEST_DB)) {
-      localStorage.setItem(
-        REQUEST_DB,
-        JSON.stringify([
-          {
-            login: "roman",
-            requests: [],
-          },
-          {
-            login: "test",
-            requests: [],
-          },
-        ])
-      );
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!localStorage.getItem(REQUEST_DB)) {
+  //     localStorage.setItem(
+  //       REQUEST_DB,
+  //       JSON.stringify([
+  //         {
+  //           login: "roman",
+  //           requests: [],
+  //         },
+  //         {
+  //           login: "test",
+  //           requests: [],
+  //         },
+  //       ])
+  //     );
+  //   }
+  // }, []);
 
   return (
     <Router>

@@ -22,11 +22,17 @@ function Favorites({ search }) {
   const [userData, setUserData] = useState(
     jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey")
   );
+  const [requestDb, setRequestDb] = useState(
+    JSON.parse(localStorage.getItem(REQUEST_DB))
+  );
 
   useEffect(() => {
-    if (userData) {
-      const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+    if (!requestDb) {
+      localStorage.setItem(REQUEST_DB, JSON.stringify([]));
+      setRequestDb(JSON.parse(localStorage.getItem(REQUEST_DB)));
+    }
 
+    if (requestDb) {
       const matches = requestDb.filter(
         (value) => value.login === userData.login
       );
