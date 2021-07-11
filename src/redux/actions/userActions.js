@@ -41,3 +41,58 @@ export const addRequest = (username, data) => {
     throw error;
   }
 };
+
+export const editRequest = (username, data, requestName) => {
+  try {
+    console.log(username, data, requestName);
+
+    if (!localStorage.getItem(USER_TOKEN))
+      throw new Error("Пользователь не авторизирован");
+
+    const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+
+    requestDb.map((value) => {
+      if (value.login === username) {
+        value.requests = value.requests.map((element) => {
+          if (element.name === requestName) {
+            element = data;
+            console.log(element);
+          }
+
+          return element;
+        });
+      }
+
+      return value;
+    });
+
+    console.log(requestDb);
+
+    localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteRequest = (username, requestName) => {
+  try {
+    if (!localStorage.getItem(USER_TOKEN))
+      throw new Error("Пользователь не авторизирован");
+
+    const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+
+    requestDb.map((value) => {
+      if (value.login === username) {
+        value.requests = value.requests.filter(
+          (element) => element.name !== requestName
+        );
+      }
+
+      return value;
+    });
+
+    localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,16 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Slider, Popover, message } from "antd";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
 
 import "../../styles/searchResult/FavoritesModal.scss";
 import withModal from "../common/withModal";
 import TextFieldGroup from "../common/TextFieldGroup";
 import Button from "../common/Button";
-import { addRequest } from "../../redux/actions/userActions";
-import { USER_TOKEN } from "../../redux/consts";
+import { addRequest, editRequest } from "../../redux/actions/userActions";
+import {
+  GET_REQUESTS_SUCCESS,
+  REQUEST_DB,
+  USER_TOKEN,
+} from "../../redux/consts";
 import SelectInput from "../common/SelectInput";
 
 const content = (
@@ -53,16 +58,26 @@ function FavoritesModal({
   showModal,
   closeModal,
   query = "",
+  data,
+  edit,
 }) {
+  const dispatch = useDispatch();
+
+  const [isDone, setIsDone] = useState(false);
+
   useEffect(() => {
     formik.setValues({ ...formik.values, query: query });
   }, [query]);
+
+  useEffect(() => {
+    if (data) formik.setValues(data);
+  }, [data]);
 
   const formik = useFormik({
     initialValues: {
       query: "",
       name: "",
-      sortType: "",
+      sortType: "relevance",
       videoQuantity: 12,
     },
 
@@ -80,11 +95,24 @@ function FavoritesModal({
           "secretkey"
         );
 
-        addRequest(userData.login, values);
+        if (edit) {
+          editRequest(userData.login, values, data.name);
+          message.success("Запрос был успешно изменен");
+        } else {
+          addRequest(userData.login, values);
+          message.success("Запрос был успешно сохранен");
+        }
 
-        message.success("Запрос было успешно сохранен");
+        dispatch({
+          type: GET_REQUESTS_SUCCESS,
+          data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
+            (value) => value.login === userData.login
+          )[0],
+        });
 
         closeModal();
+
+        if (!edit) setIsDone(true);
       } catch (error) {
         message.error(error.message);
       }
@@ -94,7 +122,12 @@ function FavoritesModal({
   return (
     <>
       <span onClick={showModal}>
-        <Popover placement="bottom" content={content}>
+        <Popover
+          placement="bottom"
+          content={content}
+          visible={isDone}
+          onVisibleChange={() => setIsDone(false)}
+        >
           {children}
         </Popover>
       </span>
@@ -109,7 +142,7 @@ function FavoritesModal({
       >
         <form className="requestModal" onSubmit={formik.handleSubmit}>
           <h3>
-            <b>Сохранить запрос</b>
+            <b>{edit ? "Изменить запрос" : "Сохранить запрос"}</b>
           </h3>
 
           <TextFieldGroup
@@ -170,10 +203,10 @@ function FavoritesModal({
                 closeModal();
               }}
             >
-              Не сохранять
+              {edit ? "Не изменять" : "Не сохранять"}
             </Button>
             <Button style="primary" type="submit">
-              Сохранить
+              {edit ? "Изменить" : "Сохранить"}
             </Button>
           </div>
         </form>

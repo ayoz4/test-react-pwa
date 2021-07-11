@@ -14,7 +14,11 @@ function SearchResult({ search, videos }) {
       <div className="result__container">
         <h2>Поиск видео</h2>
 
-        <SearchInput searched search={search} />
+        <SearchInput
+          searched
+          search={search}
+          settedQuery={videos.result.query}
+        />
 
         <div className="result__filter">
           <div className="result__query">

@@ -74,8 +74,6 @@ function App() {
 
     const userData = jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey");
 
-    console.log(userData);
-
     dispatch({
       type: GET_REQUESTS_SUCCESS,
       data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(

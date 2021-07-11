@@ -6,24 +6,26 @@ import {
   FETCH_VIDEOS_FAILURE,
 } from "../consts";
 
-export const search = (query) => async (dispatch) => {
-  try {
-    dispatch({ type: FETCH_VIDEOS_REQUEST });
+export const search =
+  (query, maxResults = 12, order = "relevance") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: FETCH_VIDEOS_REQUEST });
 
-    const msg = await axios({
-      method: "GET",
-      url:
-        YOUTUBE_API +
-        `?part=snippet&q=${query}&maxResults=12&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
-    });
+      const msg = await axios({
+        method: "GET",
+        url:
+          YOUTUBE_API +
+          `?part=snippet&q=${query}&maxResults=${maxResults}&order=${order}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+      });
 
-    return dispatch({
-      type: FETCH_VIDEOS_SUCCESS,
-      data: { ...msg.data, query: query },
-    });
-  } catch (error) {
-    throw dispatch({ type: FETCH_VIDEOS_FAILURE, data: error.response });
-  }
-};
+      return dispatch({
+        type: FETCH_VIDEOS_SUCCESS,
+        data: { ...msg.data, query: query },
+      });
+    } catch (error) {
+      throw dispatch({ type: FETCH_VIDEOS_FAILURE, data: error.response });
+    }
+  };
 
 export const test = "test";

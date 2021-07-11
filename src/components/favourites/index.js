@@ -1,10 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch, connect } from "react-redux";
+import jwt from "jsonwebtoken";
+import { message } from "antd";
 
 import "../../styles/favorites/Favorites.scss";
+import FavoritesModal from "../searchResult/FavoritesModal";
+import { deleteRequest } from "../../redux/actions/userActions";
+import {
+  GET_REQUESTS_SUCCESS,
+  REQUEST_DB,
+  USER_TOKEN,
+} from "../../redux/consts";
+import { search } from "../../redux/actions/youtubeActions";
+import { Link } from "react-router-dom";
 
-function Favorites() {
+function Favorites({ search }) {
   const favorites = useSelector((state) => state.favorites.requests);
+  const dispatch = useDispatch();
+
+  const [userData, setUserData] = useState(
+    jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey")
+  );
 
   return (
     <div className="favorites">
@@ -14,13 +30,38 @@ function Favorites() {
         <ul className="favorites__list">
           {favorites.map((value) => (
             <li>
-              <a>
+              <Link
+                to="/result"
+                onClick={() =>
+                  search(value.query, value.videoQuantity, value.sortType)
+                }
+              >
                 <b>{value.name}</b>
-              </a>
+              </Link>
 
               <div className="favorites__btnBlock">
-                <button className="favorites__editBtn">Изменить</button>
-                <button className="favorites__deleteBtn">Удалить</button>
+                <FavoritesModal data={value} edit>
+                  <button className="favorites__editBtn">Изменить</button>
+                </FavoritesModal>
+                <button
+                  className="favorites__deleteBtn"
+                  onClick={() => {
+                    try {
+                      deleteRequest(userData.login, value.name);
+                      dispatch({
+                        type: GET_REQUESTS_SUCCESS,
+                        data: JSON.parse(
+                          localStorage.getItem(REQUEST_DB)
+                        ).filter((value) => value.login === userData.login)[0],
+                      });
+                      message.success("Запрос был успешно удален");
+                    } catch (error) {
+                      message.error(error.message);
+                    }
+                  }}
+                >
+                  Удалить
+                </button>
               </div>
             </li>
           ))}
@@ -30,4 +71,4 @@ function Favorites() {
   );
 }
 
-export default Favorites;
+export default connect(null, { search })(Favorites);

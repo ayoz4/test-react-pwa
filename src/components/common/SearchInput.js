@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../../styles/common/SearchInput.scss";
 import Button from "./Button";
 import FavoritesModal from "../searchResult/FavoritesModal";
 
-function SearchInput({ searched = false, search, history }) {
-  const [query, setQuery] = useState("");
+function SearchInput({ searched = false, search, history, settedQuery }) {
+  const [query, setQuery] = useState(settedQuery);
+
+  useEffect(() => {
+    setQuery(settedQuery);
+  }, [settedQuery]);
 
   return (
     <div className="searchInput">
@@ -13,6 +17,7 @@ function SearchInput({ searched = false, search, history }) {
         <input
           className="searchInput__input"
           onChange={(e) => setQuery(e.target.value)}
+          value={query}
         />
         {searched && (
           <FavoritesModal query={query}>
