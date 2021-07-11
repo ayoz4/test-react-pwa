@@ -26,17 +26,22 @@ export const addRequest = (username, data) => {
 
     const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
 
-    requestDb.map((value) => {
-      if (value.login === username) {
-        if (value.requests.some((element) => element.name === data.name)) {
-          throw new Error("Такой запрос уже был добавлен");
+    const matches = requestDb.filter((value) => value.login === username);
+
+    if (matches.length === 0)
+      requestDb.push({ login: username, requests: [data] });
+    else
+      requestDb.map((value) => {
+        if (value.login === username) {
+          if (value.requests.some((element) => element.name === data.name)) {
+            throw new Error("Такой запрос уже был добавлен");
+          }
+
+          value.requests = [...value.requests, data];
         }
 
-        value.requests = [...value.requests, data];
-      }
-
-      return value;
-    });
+        return value;
+      });
 
     localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
   } catch (error) {
@@ -46,8 +51,6 @@ export const addRequest = (username, data) => {
 
 export const editRequest = (username, data, requestName) => {
   try {
-    console.log(username, data, requestName);
-
     if (!localStorage.getItem(USER_TOKEN))
       throw new Error("Пользователь не авторизирован");
 

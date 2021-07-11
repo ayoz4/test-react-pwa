@@ -6,14 +6,12 @@ import {
   Redirect,
 } from "react-router-dom";
 import Favorites from "./components/favourites";
-import { useDispatch } from "react-redux";
-import jwt from "jsonwebtoken";
 
 import Login from "./components/login";
 import Navbar from "./components/navbar";
 import SearchPage from "./components/search";
 import SearchResult from "./components/searchResult";
-import { GET_REQUESTS_SUCCESS, REQUEST_DB, USER_TOKEN } from "./redux/consts";
+import { REQUEST_DB, USER_TOKEN } from "./redux/consts";
 
 const isAuth = () => {
   const token = localStorage.getItem(USER_TOKEN);
@@ -57,8 +55,6 @@ const IsAuthRoute = ({ component: Component, ...rest }) => (
 );
 
 function App() {
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (!localStorage.getItem(REQUEST_DB)) {
       localStorage.setItem(
@@ -68,22 +64,12 @@ function App() {
             login: "roman",
             requests: [],
           },
+          {
+            login: "test",
+            requests: [],
+          },
         ])
       );
-    }
-
-    if (localStorage.getItem(USER_TOKEN)) {
-      const userData = jwt.verify(
-        localStorage.getItem(USER_TOKEN),
-        "secretkey"
-      );
-
-      dispatch({
-        type: GET_REQUESTS_SUCCESS,
-        data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
-          (value) => value.login === userData.login
-        )[0],
-      });
     }
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import jwt from "jsonwebtoken";
 import { message } from "antd";
@@ -22,6 +22,29 @@ function Favorites({ search }) {
   const [userData, setUserData] = useState(
     jwt.verify(localStorage.getItem(USER_TOKEN), "secretkey")
   );
+
+  useEffect(() => {
+    if (userData) {
+      const requestDb = JSON.parse(localStorage.getItem(REQUEST_DB));
+
+      const matches = requestDb.filter(
+        (value) => value.login === userData.login
+      );
+
+      if (matches.length === 0) {
+        requestDb.push({ login: userData.login, requests: [] });
+
+        localStorage.setItem(REQUEST_DB, JSON.stringify(requestDb));
+      }
+
+      dispatch({
+        type: GET_REQUESTS_SUCCESS,
+        data: JSON.parse(localStorage.getItem(REQUEST_DB)).filter(
+          (value) => value.login === userData.login
+        )[0],
+      });
+    }
+  }, []);
 
   if (favorites.length === 0) {
     return <EmptyPage />;
