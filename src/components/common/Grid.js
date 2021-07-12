@@ -11,6 +11,7 @@ function Grid({ data }) {
           preview={`https://www.youtube.com/embed/${value.id.videoId}`}
           title={value.snippet.title}
           channelTitle={value.snippet.channelTitle}
+          viewCount={value.viewCount}
         />
       ))}
     </div>

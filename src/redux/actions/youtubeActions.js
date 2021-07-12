@@ -16,7 +16,20 @@ export const search =
         method: "GET",
         url:
           YOUTUBE_API +
-          `?part=snippet&q=${query}&maxResults=${maxResults}&order=${order}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+          `search?part=snippet&q=${query}&maxResults=${maxResults}&order=${order}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+      });
+
+      await msg.data.items.map(async (value) => {
+        const video = await axios({
+          method: "GET",
+          url:
+            YOUTUBE_API +
+            `videos?part=statistics&id=${value.id.videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`,
+        });
+
+        value.viewCount = await video.data.items[0].statistics.viewCount;
+
+        return value;
       });
 
       return dispatch({
@@ -24,6 +37,7 @@ export const search =
         data: { ...msg.data, query: query },
       });
     } catch (error) {
+      console.log(error);
       throw dispatch({ type: FETCH_VIDEOS_FAILURE, data: error.response });
     }
   };

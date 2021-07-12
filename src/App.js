@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,7 +10,7 @@ import Login from "./components/login";
 import Navbar from "./components/navbar";
 import SearchPage from "./components/search";
 import SearchResult from "./components/searchResult";
-import { REQUEST_DB, USER_TOKEN } from "./redux/consts";
+import { USER_TOKEN } from "./redux/consts";
 
 const isAuth = () => {
   const token = localStorage.getItem(USER_TOKEN);

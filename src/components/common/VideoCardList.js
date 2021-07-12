@@ -2,7 +2,7 @@ import React from "react";
 
 import "../../styles/searchResult/VideoCardList.scss";
 
-function VideoCardList({ preview, title, channelTitle }) {
+function VideoCardList({ preview, title, channelTitle, viewCount }) {
   return (
     <div className="videoCardList">
       <iframe
@@ -10,9 +10,9 @@ function VideoCardList({ preview, title, channelTitle }) {
         height="88"
         src={preview}
         title="YouTube video player"
-        frameborder="0"
+        frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
 
       <div className="videoCardList__info">
@@ -20,7 +20,7 @@ function VideoCardList({ preview, title, channelTitle }) {
 
         <div className="videoCardList__channelBlock">
           <span className="videoCardList__channelTitle">{channelTitle}</span>
-          <p>786 тыс. просмотров</p>
+          <p>{viewCount} просмотров</p>
         </div>
       </div>
     </div>

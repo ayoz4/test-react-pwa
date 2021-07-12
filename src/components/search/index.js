@@ -5,7 +5,7 @@ import SearchInput from "../common/SearchInput";
 import withSearch from "../common/withSearch";
 
 function SearchPage({ search, history }) {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   return (
     <div className="search">
